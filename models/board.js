@@ -4,9 +4,9 @@ module.exports = class Board extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
-        board_no: {
+        boardNo: {
+          field: "board_no",
           type: Sequelize.BIGINT(140),
-          allowNull: false,
         },
         title: {
           type: Sequelize.STRING(255),
@@ -20,9 +20,10 @@ module.exports = class Board extends Sequelize.Model {
           type: Sequelize.STRING(255),
           allowNull: true,
         },
-        reg_date: {
+        regDate: {
+          field: "reg_date",
           type: Sequelize.DATE,
-          allowNull: true,
+          defaultValue: new Date(),
         },
       },
       {

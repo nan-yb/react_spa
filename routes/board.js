@@ -6,13 +6,16 @@ const {
   createBoard,
   deleteBoard,
   updateBoard,
+  selectListBoard,
 } = require("../controllers/board");
 
 const router = express.Router();
 
-router.get("/:id/", selectBoard);
+router.get("/", selectListBoard);
+router.get("/:id", selectBoard);
+
 router.post("/create", createBoard);
-router.delete("/delete/:id", deleteBoard);
-router.put("/update/:id", updateBoard);
+router.delete("/:id", deleteBoard);
+router.put("/:id", updateBoard);
 
 module.exports = router;
