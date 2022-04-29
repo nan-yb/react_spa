@@ -12,12 +12,16 @@ exports.selectBoard = async (req, res, next) => {
 
 exports.createBoard = async (req, res, next) => {
   try {
-    const user = await Board.findOne({ where: { id: req.user.id } });
-    if (user) {
-      await user.addFollowing(parseInt(req.params.id, 10));
+    const board = await Board.create({
+      title: req.board.title,
+      writer: req.board.writer,
+      content: req.board.content,
+      reg_date: req.board.reg_date,
+    });
+    if (board) {
       res.send("success");
     } else {
-      res.status(404).send("no user");
+      res.status(404).send("error");
     }
   } catch (error) {
     console.error(error);
@@ -27,13 +31,19 @@ exports.createBoard = async (req, res, next) => {
 
 exports.updateBoard = async (req, res, next) => {
   try {
-    const user = await Board.findOne({ where: { id: req.user.id } });
-    if (user) {
-      await user.addFollowing(parseInt(req.params.id, 10));
-      res.send("success");
-    } else {
-      res.status(404).send("no user");
-    }
+    await Board.update(
+      {
+        content: req.board.content,
+      },
+      {
+        where: {
+          id: req.params.board_no,
+          writer: req.board.writer,
+        },
+      }
+    );
+
+    res.send("success");
   } catch (error) {
     console.error(error);
     next(error);
@@ -42,13 +52,9 @@ exports.updateBoard = async (req, res, next) => {
 
 exports.deleteBoard = async (req, res, next) => {
   try {
-    const user = await Board.findOne({ where: { id: req.user.id } });
-    if (user) {
-      await user.addFollowing(parseInt(req.params.id, 10));
-      res.send("success");
-    } else {
-      res.status(404).send("no user");
-    }
+    await Board.destroy({ where: { id: req.params.board_no } });
+
+    res.status(200).json({ BoardID: req.params.board_no });
   } catch (error) {
     console.error(error);
     next(error);

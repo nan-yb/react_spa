@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.get("/:id/", selectBoard);
 router.post("/create", createBoard);
-router.delete("/:id/delete", deleteBoard);
-router.put("/:id/update", updateBoard);
+router.delete("/delete/:id", deleteBoard);
+router.put("/update/:id", updateBoard);
 
 module.exports = router;
