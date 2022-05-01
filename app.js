@@ -2,21 +2,14 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const path = require("path");
-// const session = require("express-session");
-// const nunjucks = require("nunjucks");
 const dotenv = require("dotenv");
-// const passport = require("passport");
 const helmet = require("helmet");
 const hpp = require("hpp");
-// const redis = require('redis');
-// const RedisStore = require('connect-redis')(session);
 
 dotenv.config();
-// const redisClient = redis.createClient({
-//   url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
-//   password: process.env.REDIS_PASSWORD,
-// });
+
 const boardRouter = require("./routes/board");
+const itemRouter = require("./routes/item");
 const pageRouter = require("./routes/page");
 const { sequelize } = require("./models");
 // const passportConfig = require("./passport");
@@ -72,6 +65,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/", pageRouter);
 app.use("/boards", boardRouter);
+app.use("/items", itemRouter);
 
 app.use((req, res, next) => {
   const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);

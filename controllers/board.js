@@ -52,20 +52,20 @@ exports.createBoard = async (req, res, next) => {
 };
 
 exports.updateBoard = async (req, res, next) => {
+  console.log(req.params);
   try {
     await Board.update(
       {
-        content: req.board.content,
+        title: req.body.title,
+        content: req.body.content,
       },
       {
         where: {
-          id: req.params.board_no,
-          writer: req.board.writer,
+          boardNo: req.params.id,
         },
       }
     );
-
-    res.send("success");
+    res.send({ boardNo: req.params.boardNo });
   } catch (error) {
     console.error(error);
     next(error);
@@ -76,7 +76,7 @@ exports.deleteBoard = async (req, res, next) => {
   try {
     await Board.destroy({ where: { id: req.params.id } });
 
-    res.status(200).json({ BoardID: req.params.id });
+    res.send({ boardNo: req.params.boardNo });
   } catch (error) {
     console.error(error);
     next(error);
