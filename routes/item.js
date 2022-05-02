@@ -29,15 +29,17 @@ const {
   deleteItem,
   updateItem,
   selectListItem,
+  showImage,
 } = require("../controllers/Item");
 
 const router = express.Router();
 
 router.get("/", selectListItem);
+router.get("/display/", showImage);
 router.get("/:id", selectItem);
 
 router.post("/", upload.single("file"), createItem);
 router.delete("/:id", deleteItem);
-router.put("/:id", updateItem);
+router.put("", updateItem);
 
 module.exports = router;

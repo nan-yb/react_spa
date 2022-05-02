@@ -1,8 +1,7 @@
 const Item = require("../models/item");
+const fs = require("fs");
 
 exports.selectItem = async (req, res, next) => {
-  console.log(req.params);
-
   try {
     const item = await Item.findOne({
       where: { item_id: req.params.id },
@@ -44,7 +43,7 @@ exports.createItem = async (req, res, next) => {
     });
 
     if (item) {
-      res.send({ itemNo: maxItemNo });
+      res.send({ itemId: maxItemNo });
     } else {
       res.status(404).send("error");
     }
@@ -56,18 +55,22 @@ exports.createItem = async (req, res, next) => {
 
 exports.updateItem = async (req, res, next) => {
   try {
+    const itemParam = JSON.parse(req.body.item);
+
     await Item.update(
       {
-        itemName: req.body.itemName,
-        description: req.body.description,
+        itemName: itemParam.itemName,
+        price: itemParam.price,
+        description: itemParam.description,
+        prctureUrl: req.file.path,
       },
       {
         where: {
-          itemNo: req.params.id,
+          description: itemParam.itemId,
         },
       }
     );
-    res.send({ itemNo: req.params.itemId });
+    res.send({ itemId: req.params.itemId });
   } catch (error) {
     console.error(error);
     next(error);
@@ -77,7 +80,29 @@ exports.updateItem = async (req, res, next) => {
 exports.deleteItem = async (req, res, next) => {
   try {
     await Item.destroy({ where: { itemId: req.params.id } });
-    res.send({ itemNo: req.params.id });
+    res.send({ itemId: req.params.id });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+};
+
+exports.showImage = async (req, res, next) => {
+  try {
+    console.log(req.query);
+    const item = await Item.findOne({
+      where: { item_id: req.query.itemId },
+    });
+
+    const prctureUrl = item.prctureUrl;
+    fs.readFile(prctureUrl, function (err, data) {
+      //http의 헤더정보를 클라이언트쪽으로 출력
+      //image/jpg : jpg 이미지 파일을 전송한다
+      //write 로 보낼 내용을 입력
+      res.writeHead(200, { "Context-Type": "image/jpg" }); //보낼 헤더를 만듬
+      res.write(data); //본문을 만들고
+      res.end(); //클라이언트에게 응답을 전송한다
+    });
   } catch (error) {
     console.error(error);
     next(error);
