@@ -1,23 +1,36 @@
 const Sequelize = require("sequelize");
 
-module.exports = class Board extends Sequelize.Model {
+module.exports = class AccessLog extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
-        boardNo: {
-          field: "board_no",
-          type: Sequelize.BIGINT(140),
+        logNo: {
+          field: "log_no",
+          type: Sequelize.BIGINT(19),
         },
-        title: {
-          type: Sequelize.STRING(255),
+        requestUri: {
+          field: "request_uri",
+          type: Sequelize.STRING(55),
           allowNull: true,
         },
-        content: {
-          type: Sequelize.STRING(255),
+        className: {
+          field: "class_name",
+          type: Sequelize.STRING(100),
           allowNull: true,
         },
-        writer: {
-          type: Sequelize.STRING(255),
+        classSimpleName: {
+          field: "class_simple_name",
+          type: Sequelize.STRING(50),
+          allowNull: true,
+        },
+        methodName: {
+          field: "method_name",
+          type: Sequelize.STRING(10),
+          allowNull: true,
+        },
+        remoteAddr: {
+          field: "remote_addr",
+          type: Sequelize.STRING(50),
           allowNull: true,
         },
         regDate: {
@@ -35,8 +48,8 @@ module.exports = class Board extends Sequelize.Model {
         sequelize,
         timestamps: true,
         underscored: false,
-        modelName: "Board",
-        tableName: "Board",
+        modelName: "AccessLog",
+        tableName: "AccessLog",
         paranoid: false,
         charset: "utf8mb4",
         collate: "utf8mb4_general_ci",

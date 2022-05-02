@@ -21,9 +21,23 @@ module.exports = class Item extends Sequelize.Model {
           type: Sequelize.STRING(255),
           allowNull: true,
         },
-        prctureUrl: {
-          field: "prcture_url",
+        pictureUrl: {
+          field: "picture_url",
           type: Sequelize.STRING(255),
+        },
+        previewUrl: {
+          field: "preview_url",
+          type: Sequelize.STRING(255),
+        },
+        regDate: {
+          field: "reg_date",
+          type: Sequelize.DATE,
+          defaultValue: new Date(),
+        },
+        updDate: {
+          field: "upd_date",
+          type: Sequelize.DATE,
+          defaultValue: new Date(),
         },
       },
       {

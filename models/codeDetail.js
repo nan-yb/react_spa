@@ -1,23 +1,28 @@
 const Sequelize = require("sequelize");
 
-module.exports = class Board extends Sequelize.Model {
+module.exports = class CodeDetail extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
-        boardNo: {
-          field: "board_no",
-          type: Sequelize.BIGINT(140),
+        groupCode: {
+          field: "group_code",
+          type: Sequelize.STRING(10),
         },
-        title: {
-          type: Sequelize.STRING(255),
-          allowNull: true,
+        codeValue: {
+          field: "code_value",
+          type: Sequelize.STRING(10),
         },
-        content: {
-          type: Sequelize.STRING(255),
-          allowNull: true,
+        codeName: {
+          field: "code_name",
+          type: Sequelize.STRING(30),
         },
-        writer: {
-          type: Sequelize.STRING(255),
+        sortSeq: {
+          field: "sort_seq",
+          type: Sequelize.INTEGER(10),
+        },
+        useYn: {
+          field: "use_yn",
+          type: Sequelize.STRING(1),
           allowNull: true,
         },
         regDate: {
@@ -35,8 +40,8 @@ module.exports = class Board extends Sequelize.Model {
         sequelize,
         timestamps: true,
         underscored: false,
-        modelName: "Board",
-        tableName: "Board",
+        modelName: "CodeDetail",
+        tableName: "CodeDetail",
         paranoid: false,
         charset: "utf8mb4",
         collate: "utf8mb4_general_ci",

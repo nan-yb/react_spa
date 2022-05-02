@@ -1,23 +1,20 @@
 const Sequelize = require("sequelize");
 
-module.exports = class Board extends Sequelize.Model {
+module.exports = class CodeGroup extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
-        boardNo: {
-          field: "board_no",
-          type: Sequelize.BIGINT(140),
+        groupCode: {
+          field: "group_code",
+          type: Sequelize.STRING(10),
         },
-        title: {
-          type: Sequelize.STRING(255),
-          allowNull: true,
+        groupName: {
+          field: "group_bane",
+          type: Sequelize.STRING(30),
         },
-        content: {
-          type: Sequelize.STRING(255),
-          allowNull: true,
-        },
-        writer: {
-          type: Sequelize.STRING(255),
+        useYn: {
+          field: "use_yn",
+          type: Sequelize.STRING(1),
           allowNull: true,
         },
         regDate: {
@@ -35,8 +32,8 @@ module.exports = class Board extends Sequelize.Model {
         sequelize,
         timestamps: true,
         underscored: false,
-        modelName: "Board",
-        tableName: "Board",
+        modelName: "CodeGroup",
+        tableName: "CodeGroup",
         paranoid: false,
         charset: "utf8mb4",
         collate: "utf8mb4_general_ci",
@@ -44,8 +41,7 @@ module.exports = class Board extends Sequelize.Model {
     );
   }
 
-  // static associate(db) {
-  // db.Board.belongsTo(db.User);
-  // db.Board.belongsToMany(db.Hashtag, { through: 'PostHashtag' });
-  // }
+  static associate(db) {
+    db.CodeGroup.belongsTo(db.CodeDetail);
+  }
 };

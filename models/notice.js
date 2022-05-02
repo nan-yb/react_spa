@@ -1,11 +1,11 @@
 const Sequelize = require("sequelize");
 
-module.exports = class Board extends Sequelize.Model {
+module.exports = class Notice extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
-        boardNo: {
-          field: "board_no",
+        noticeNo: {
+          field: "notice_no",
           type: Sequelize.BIGINT(140),
         },
         title: {
@@ -13,10 +13,6 @@ module.exports = class Board extends Sequelize.Model {
           allowNull: true,
         },
         content: {
-          type: Sequelize.STRING(255),
-          allowNull: true,
-        },
-        writer: {
           type: Sequelize.STRING(255),
           allowNull: true,
         },
@@ -35,8 +31,8 @@ module.exports = class Board extends Sequelize.Model {
         sequelize,
         timestamps: true,
         underscored: false,
-        modelName: "Board",
-        tableName: "Board",
+        modelName: "Notice",
+        tableName: "Notice",
         paranoid: false,
         charset: "utf8mb4",
         collate: "utf8mb4_general_ci",

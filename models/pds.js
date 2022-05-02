@@ -1,22 +1,25 @@
 const Sequelize = require("sequelize");
 
-module.exports = class Board extends Sequelize.Model {
+module.exports = class Pds extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
-        boardNo: {
-          field: "board_no",
-          type: Sequelize.BIGINT(140),
+        itemId: {
+          field: "item_id",
+          type: Sequelize.BIGINT(19),
         },
-        title: {
+        itemName: {
+          field: "item_name",
           type: Sequelize.STRING(255),
           allowNull: true,
         },
-        content: {
-          type: Sequelize.STRING(255),
+        viewCnt: {
+          field: "view_cnt",
+          type: Sequelize.INTEGER(10),
           allowNull: true,
         },
-        writer: {
+        description: {
+          field: "description",
           type: Sequelize.STRING(255),
           allowNull: true,
         },
@@ -35,8 +38,8 @@ module.exports = class Board extends Sequelize.Model {
         sequelize,
         timestamps: true,
         underscored: false,
-        modelName: "Board",
-        tableName: "Board",
+        modelName: "Pds",
+        tableName: "Pds",
         paranoid: false,
         charset: "utf8mb4",
         collate: "utf8mb4_general_ci",

@@ -1,23 +1,26 @@
 const Sequelize = require("sequelize");
 
-module.exports = class Board extends Sequelize.Model {
+module.exports = class PerformanceLog extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
-        boardNo: {
-          field: "board_no",
-          type: Sequelize.BIGINT(140),
+        logNo: {
+          field: "log_no",
+          type: Sequelize.BIGINT(19),
         },
-        title: {
-          type: Sequelize.STRING(255),
+        signatureName: {
+          field: "signature_name",
+          type: Sequelize.STRING(55),
           allowNull: true,
         },
-        content: {
-          type: Sequelize.STRING(255),
+        signatureTypeName: {
+          field: "signature_type_name",
+          type: Sequelize.STRING(100),
           allowNull: true,
         },
-        writer: {
-          type: Sequelize.STRING(255),
+        durationTime: {
+          field: "duration_time",
+          type: Sequelize.BIGINT(19),
           allowNull: true,
         },
         regDate: {
@@ -35,8 +38,8 @@ module.exports = class Board extends Sequelize.Model {
         sequelize,
         timestamps: true,
         underscored: false,
-        modelName: "Board",
-        tableName: "Board",
+        modelName: "PerformanceLog",
+        tableName: "PerformanceLog",
         paranoid: false,
         charset: "utf8mb4",
         collate: "utf8mb4_general_ci",
