@@ -38,7 +38,7 @@ exports.createItem = async (req, res, next) => {
     const item = await Item.create({
       itemId: maxItemNo,
       itemName: itemParam.itemName,
-      writer: itemParam.price,
+      price: itemParam.price,
       description: itemParam.description,
       prctureUrl: req.file.path,
     });
@@ -76,9 +76,8 @@ exports.updateItem = async (req, res, next) => {
 
 exports.deleteItem = async (req, res, next) => {
   try {
-    await Item.destroy({ where: { id: req.params.id } });
-
-    res.send({ itemNo: req.params.itemNo });
+    await Item.destroy({ where: { itemId: req.params.id } });
+    res.send({ itemNo: req.params.id });
   } catch (error) {
     console.error(error);
     next(error);
