@@ -51,7 +51,7 @@ module.exports = class Member extends Sequelize.Model {
     );
   }
 
-  static associate(db) {
-    // db.CodeGroup.belongsTo(db.CodeDetail);
-  }
+  // static associate(db) {
+  // db.CodeGroup.belongsTo(db.CodeDetail);
+  // }
 };
