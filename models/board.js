@@ -33,7 +33,7 @@ module.exports = class Board extends Sequelize.Model {
       },
       {
         sequelize,
-        timestamps: true,
+        timestamps: false,
         underscored: false,
         modelName: "Board",
         tableName: "Board",

@@ -41,7 +41,7 @@ module.exports = class PayCoinHistory extends Sequelize.Model {
       },
       {
         sequelize,
-        timestamps: true,
+        timestamps: false,
         underscored: false,
         modelName: "PayCoinHistory",
         tableName: "PayCoinHistory",

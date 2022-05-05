@@ -30,7 +30,7 @@ module.exports = class MemberAuth extends Sequelize.Model {
       },
       {
         sequelize,
-        timestamps: true,
+        timestamps: false,
         underscored: false,
         modelName: "MemberAuth",
         tableName: "MemberAuth",
@@ -42,6 +42,6 @@ module.exports = class MemberAuth extends Sequelize.Model {
   }
 
   static associate(db) {
-    // db.CodeGroup.belongsTo(db.CodeDetail);
+    db.MemberAuth.belongsTo(db.Member);
   }
 };

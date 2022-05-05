@@ -31,7 +31,7 @@ module.exports = class ChargeCoinHistory extends Sequelize.Model {
       },
       {
         sequelize,
-        timestamps: true,
+        timestamps: false,
         underscored: false,
         modelName: "ChargeCoinHistory",
         tableName: "ChargeCoinHistory",

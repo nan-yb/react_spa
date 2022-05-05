@@ -1,5 +1,6 @@
 const User = require("../models/member");
 const fs = require("fs");
+const jwt = require("jsonwebtoken");
 
 exports.selectUser = async (req, res, next) => {
   try {
@@ -106,4 +107,48 @@ exports.showImage = async (req, res, next) => {
     console.error(error);
     next(error);
   }
+};
+
+exports.authUser = async (req, res, next) => {
+  // const username = req.query.username;
+  // const password = req.query.password;
+  const { username, password } = req.query;
+
+  const loginUser = await User.findOne({ user_id: username });
+
+  if (!loginUser) {
+    return res.send({
+      error: true,
+      msg: "존재하지 않는 이메일",
+    });
+  }
+
+  const correctPassword = loginUser.userPw;
+
+  if (correctPassword !== password) {
+    return res.send({
+      error: true,
+      msg: "비밀번호 불일치",
+    });
+  }
+
+  const secret = req.app.get("secretCode");
+
+  const token = jwt.sign(
+    {
+      username: loginUser.userId,
+      password: loginUser.userPw,
+    },
+    secret,
+    {
+      expiresIn: "1d",
+      issuer: "spaDevelop",
+      subject: "auth",
+    }
+  );
+  res.status(200).json({
+    token: token,
+    error: false,
+    msg: "로그인 성공",
+  });
 };

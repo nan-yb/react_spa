@@ -30,7 +30,7 @@ module.exports = class CodeGroup extends Sequelize.Model {
       },
       {
         sequelize,
-        timestamps: true,
+        timestamps: false,
         underscored: false,
         modelName: "CodeGroup",
         tableName: "CodeGroup",
@@ -42,6 +42,6 @@ module.exports = class CodeGroup extends Sequelize.Model {
   }
 
   static associate(db) {
-    db.CodeGroup.belongsTo(db.CodeDetail);
+    db.CodeGroup.hasMany(db.CodeDetail);
   }
 };

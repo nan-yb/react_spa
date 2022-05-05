@@ -1,22 +1,12 @@
 const Sequelize = require("sequelize");
 const env = process.env.NODE_ENV || "development";
 const config = require("../config/config")[env];
-const Board = require("./board");
-const Item = require("./item");
-const CodeDetail = require("./codeDetail");
-const CodeGroup = require("./codeGroup");
-
-const AccessLog = require("./accessLog");
-const ChargeCoinHistory = require("./chargeCoinHistory");
-const Member = require("./member");
-const MemberAuth = require("./memberAuth");
-const Notice = require("./notice");
-const PayCoinHistory = require("./payCoinHistory");
-const Pds = require("./pds");
-const PdsFile = require("./pdsFile");
-const PerformanceLog = require("./performanceLog");
+const fs = require("fs");
+const path = require("path");
+const basename = path.basename(__filename);
 
 const db = {};
+
 const sequelize = new Sequelize(
   config.database,
   config.username,
@@ -25,36 +15,23 @@ const sequelize = new Sequelize(
 );
 
 db.sequelize = sequelize;
-db.Board = Board;
-db.Item = Item;
-db.CodeDetail = CodeDetail;
-db.CodeGroup = CodeGroup;
 
-db.AccessLog = AccessLog;
-db.ChargeCoinHistory = ChargeCoinHistory;
-db.Member = Member;
-db.MemberAuth = MemberAuth;
-db.Notice = Notice;
-db.PayCoinHistory = PayCoinHistory;
-db.Pds = Pds;
-db.PdsFile = PdsFile;
-db.PerformanceLog = PerformanceLog;
+fs.readdirSync(__dirname)
+  .filter((file) => {
+    return (
+      file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
+    );
+  })
+  .forEach((file) => {
+    const model = require(path.join(__dirname, file));
+    db[model.name] = model;
+    model.init(sequelize);
+  });
 
-Board.init(sequelize);
-Item.init(sequelize);
-CodeDetail.init(sequelize);
-CodeGroup.init(sequelize);
-
-AccessLog.init(sequelize);
-ChargeCoinHistory.init(sequelize);
-Member.init(sequelize);
-MemberAuth.init(sequelize);
-Notice.init(sequelize);
-PayCoinHistory.init(sequelize);
-Pds.init(sequelize);
-PdsFile.init(sequelize);
-PerformanceLog.init(sequelize);
-
-// Board.associate(db);
+Object.keys(db).forEach((modelName) => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
+});
 
 module.exports = db;

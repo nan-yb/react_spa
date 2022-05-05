@@ -36,7 +36,7 @@ module.exports = class PdsFile extends Sequelize.Model {
       },
       {
         sequelize,
-        timestamps: true,
+        timestamps: false,
         underscored: false,
         modelName: "PdsFile",
         tableName: "PdsFile",
@@ -47,8 +47,7 @@ module.exports = class PdsFile extends Sequelize.Model {
     );
   }
 
-  // static associate(db) {
-  // db.Board.belongsTo(db.User);
-  // db.Board.belongsToMany(db.Hashtag, { through: 'PostHashtag' });
-  // }
+  static associate(db) {
+    db.PdsFile.belongsTo(db.Pds);
+  }
 };

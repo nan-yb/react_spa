@@ -29,7 +29,7 @@ module.exports = class Notice extends Sequelize.Model {
       },
       {
         sequelize,
-        timestamps: true,
+        timestamps: false,
         underscored: false,
         modelName: "Notice",
         tableName: "Notice",

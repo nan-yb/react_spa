@@ -2,11 +2,10 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const path = require("path");
-const dotenv = require("dotenv");
 const helmet = require("helmet");
 const hpp = require("hpp");
 
-dotenv.config();
+require("dotenv").config();
 
 const boardRouter = require("./routes/board");
 const itemRouter = require("./routes/item");
@@ -19,6 +18,7 @@ const logger = require("./logger");
 
 const app = express();
 
+app.set("secretCode", process.env.SECRET_CODE);
 app.set("port", process.env.PORT || 8001);
 // passportConfig(); // 패스포트 설정
 
