@@ -8,11 +8,13 @@ const {
   updateUser,
   selectListUser,
   authUser,
+  getMyInfo,
 } = require("../controllers/user");
 
 const router = express.Router();
 
 router.get("/", selectListUser);
+router.get("/myinfo", getMyInfo);
 router.get("/:id", selectUser);
 
 router.post("/setup", createUser);

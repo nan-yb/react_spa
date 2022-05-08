@@ -136,8 +136,8 @@ exports.authUser = async (req, res, next) => {
 
   const token = jwt.sign(
     {
-      username: loginUser.userId,
-      password: loginUser.userPw,
+      username: loginUser.userName,
+      userId: loginUser.userId,
     },
     secret,
     {
@@ -146,9 +146,29 @@ exports.authUser = async (req, res, next) => {
       subject: "auth",
     }
   );
-  res.status(200).json({
-    token: token,
-    error: false,
-    msg: "로그인 성공",
-  });
+
+  const data = {
+    userName: loginUser.userName,
+  };
+
+  res.status(200).header("authorization", token).json(data);
+};
+
+exports.getMyInfo = async (res, req, next) => {
+  res.status(200);
+  // const { authorization } = req.headers;
+  // if (!authorization) {
+  //   return res.send(false);
+  // }
+  // const token = authorization.split(" ")[1];
+  // const secret = req.app.get("secretCode");
+  // jwt.verify(token, secret, (err, data) => {
+  //   if (err) {
+  //     res.send(err);
+  //   }
+  //   res.send({
+  //     username: data.username,
+  //     userId: data.userId,
+  //   });
+  // });
 };
