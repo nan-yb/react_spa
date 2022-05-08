@@ -146,29 +146,32 @@ exports.authUser = async (req, res, next) => {
       subject: "auth",
     }
   );
-
-  const data = {
-    userName: loginUser.userName,
-  };
-
-  res.status(200).header("authorization", token).json(data);
+  console.log("1 : " + token);
+  console.log("2 : " + secret);
+  res.status(200).header("authorization", token).send();
 };
 
 exports.getMyInfo = async (res, req, next) => {
-  res.status(200);
-  // const { authorization } = req.headers;
-  // if (!authorization) {
-  //   return res.send(false);
-  // }
-  // const token = authorization.split(" ")[1];
-  // const secret = req.app.get("secretCode");
-  // jwt.verify(token, secret, (err, data) => {
-  //   if (err) {
-  //     res.send(err);
-  //   }
-  //   res.send({
-  //     username: data.username,
-  //     userId: data.userId,
-  //   });
-  // });
+  try {
+    console.log(1);
+    var authorization = req.headers["authorization"];
+
+    if (!authorization) {
+      return res.send(false);
+    }
+
+    const token = authorization.split(" ")[1];
+    const secret = req.app.get("secretCode");
+    jwt.verify(token, secret, (err, data) => {
+      if (err) {
+        res.send(err);
+      }
+      res.send({
+        userName: data.username,
+        userId: data.userId,
+      });
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
