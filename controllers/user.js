@@ -139,15 +139,9 @@ exports.authUser = async (req, res, next) => {
       username: loginUser.userName,
       userId: loginUser.userId,
     },
-    secret,
-    {
-      expiresIn: "1d",
-      issuer: "spaDevelop",
-      subject: "auth",
-    }
+    secret
   );
-  console.log("1 : " + token);
-  console.log("2 : " + secret);
+
   res.status(200).header("authorization", token).send();
 };
 
