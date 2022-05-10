@@ -89,7 +89,6 @@ exports.deleteItem = async (req, res, next) => {
 
 exports.showImage = async (req, res, next) => {
   try {
-    console.log(req.query);
     const item = await Item.findOne({
       where: { item_id: req.query.itemId },
     });

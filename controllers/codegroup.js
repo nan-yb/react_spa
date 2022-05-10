@@ -1,8 +1,6 @@
 const CodeGroup = require("../models/codeGroup");
 
 exports.fetchCodeGroup = async (req, res, next) => {
-  console.log(req.params);
-
   try {
     const codeGroup = await CodeGroup.findOne({
       where: { board_no: req.params.id },
@@ -52,7 +50,6 @@ exports.writeCodeGroup = async (req, res, next) => {
 };
 
 exports.modifyCodeGroup = async (req, res, next) => {
-  console.log(req.params);
   try {
     await CodeGroup.update(
       {

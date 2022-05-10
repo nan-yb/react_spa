@@ -5,6 +5,7 @@ module.exports = class Member extends Sequelize.Model {
     return super.init(
       {
         userNo: {
+          primaryKey: true,
           field: "user_no",
           type: Sequelize.BIGINT(19),
         },
@@ -52,6 +53,8 @@ module.exports = class Member extends Sequelize.Model {
   }
 
   static associate(db) {
-    db.Member.hasMany(db.MemberAuth);
+    db.Member.hasMany(db.MemberAuth, {
+      foreignKey: "user_no",
+    });
   }
 };

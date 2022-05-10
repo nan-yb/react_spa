@@ -1,8 +1,6 @@
 const Board = require("../models/board");
 
 exports.selectBoard = async (req, res, next) => {
-  console.log(req.params);
-
   try {
     const board = await Board.findOne({
       where: { board_no: req.params.id },
@@ -52,7 +50,6 @@ exports.createBoard = async (req, res, next) => {
 };
 
 exports.updateBoard = async (req, res, next) => {
-  console.log(req.params);
   try {
     await Board.update(
       {

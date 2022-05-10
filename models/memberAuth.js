@@ -5,6 +5,7 @@ module.exports = class MemberAuth extends Sequelize.Model {
     return super.init(
       {
         userAuthNo: {
+          primaryKey: true,
           field: "user_auth_no",
           type: Sequelize.BIGINT(19),
         },

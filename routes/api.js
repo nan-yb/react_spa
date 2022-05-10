@@ -16,16 +16,10 @@ router.get("/myinfo", async (req, res, next) => {
         console.log(err);
       }
 
-      console.log(data);
-
       res.status(200).send({
         userName: data.username,
         userId: data.userId,
-        authList: [
-          {
-            auth: "ROLE_ADMIN",
-          },
-        ],
+        authList: data.authList,
       });
     });
   } catch (error) {}

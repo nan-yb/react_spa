@@ -1,4 +1,5 @@
 const User = require("../models/member");
+const MemberAuth = require("../models/memberAuth");
 const fs = require("fs");
 const jwt = require("jsonwebtoken");
 
@@ -7,6 +8,9 @@ exports.selectUser = async (req, res, next) => {
     const user = await User.findOne({
       where: { user_id: req.params.id },
     });
+
+    console.log(user);
+
     res.send(user);
   } catch (error) {
     console.error(error);
@@ -89,7 +93,6 @@ exports.deleteUser = async (req, res, next) => {
 
 exports.showImage = async (req, res, next) => {
   try {
-    console.log(req.query);
     const user = await User.findOne({
       where: { user_id: req.query.userNo },
     });
@@ -110,11 +113,19 @@ exports.showImage = async (req, res, next) => {
 };
 
 exports.authUser = async (req, res, next) => {
-  // const username = req.query.username;
-  // const password = req.query.password;
   const { username, password } = req.query;
 
-  const loginUser = await User.findOne({ user_id: username });
+  const loginUser = await User.findOne({
+    where: { user_id: username },
+    include: [
+      {
+        model: MemberAuth,
+        attributes: ["user_auth_no", "auth"],
+      },
+    ],
+  });
+
+  console.log();
 
   if (!loginUser) {
     return res.send({
@@ -138,34 +149,10 @@ exports.authUser = async (req, res, next) => {
     {
       username: loginUser.userName,
       userId: loginUser.userId,
+      authList: loginUser.MemberAuths,
     },
     secret
   );
 
   res.status(200).header("authorization", token).send();
-};
-
-exports.getMyInfo = async (res, req, next) => {
-  try {
-    console.log(1);
-    var authorization = req.headers["authorization"];
-
-    if (!authorization) {
-      return res.send(false);
-    }
-
-    const token = authorization.split(" ")[1];
-    const secret = req.app.get("secretCode");
-    jwt.verify(token, secret, (err, data) => {
-      if (err) {
-        res.send(err);
-      }
-      res.send({
-        userName: data.username,
-        userId: data.userId,
-      });
-    });
-  } catch (error) {
-    console.log(error);
-  }
 };
