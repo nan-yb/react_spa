@@ -1,30 +1,30 @@
-const CodeGroup = require("../models/codeGroup");
+const CodeDetail = require("../models/codeDetail");
 
-exports.fetchCodeGroup = async (req, res, next) => {
+exports.fetchCodeDetail = async (req, res, next) => {
   try {
-    const codeGroup = await CodeGroup.findOne({
+    const codeDetail = await CodeDetail.findOne({
       where: { group_code: req.params.id },
     });
-    res.send(codeGroup);
+    res.send(codeDetail);
   } catch (error) {
     console.error(error);
     next(error);
   }
 };
 
-exports.fetchCodeGroupList = async (req, res, next) => {
+exports.fetchCodeDetailList = async (req, res, next) => {
   try {
-    const codeGroup = await CodeGroup.findAll();
-    res.send(codeGroup);
+    const codeDetail = await CodeDetail.findAll();
+    res.send(codeDetail);
   } catch (error) {
     console.error(error);
     next(error);
   }
 };
 
-exports.writeCodeGroup = async (req, res, next) => {
+exports.writeCodeDetail = async (req, res, next) => {
   try {
-    let groupDefine = await CodeGroup.findOne({
+    let groupDefine = await CodeDetail.findOne({
       where: {
         groupCode: req.body.groupCode,
       },
@@ -34,13 +34,13 @@ exports.writeCodeGroup = async (req, res, next) => {
       res.send({ groupCode: "" });
     }
 
-    const codeGroup = await CodeGroup.create({
+    const codeDetail = await CodeDetail.create({
       groupCode: req.body.groupCode,
       groupName: req.body.groupName,
       useYn: "Y",
     });
 
-    if (codeGroup) {
+    if (codeDetail) {
       res.send({ groupCode: req.body.groupCode });
     } else {
       res.status(404).send("error");
@@ -51,9 +51,9 @@ exports.writeCodeGroup = async (req, res, next) => {
   }
 };
 
-exports.modifyCodeGroup = async (req, res, next) => {
+exports.modifyCodeDetail = async (req, res, next) => {
   try {
-    await CodeGroup.update(
+    await CodeDetail.update(
       {
         groupName: req.body.groupName,
       },
@@ -70,9 +70,9 @@ exports.modifyCodeGroup = async (req, res, next) => {
   }
 };
 
-exports.removeCodeGroup = async (req, res, next) => {
+exports.removeCodeDetail = async (req, res, next) => {
   try {
-    await CodeGroup.destroy({ where: { groupCode: req.params.id } });
+    await CodeDetail.destroy({ where: { groupCode: req.params.id } });
 
     res.send({ groupCode: req.params.groupCode });
   } catch (error) {

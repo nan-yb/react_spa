@@ -19,7 +19,12 @@ router.get("/myinfo", async (req, res, next) => {
       res.status(200).send({
         userName: data.username,
         userId: data.userId,
-        authList: data.authList,
+        authList: [
+          {
+            auth: "ROLE_ADMIN",
+          },
+        ],
+        // authList: data.authList,
       });
     });
   } catch (error) {}

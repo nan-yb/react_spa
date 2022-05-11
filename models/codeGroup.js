@@ -9,7 +9,7 @@ module.exports = class CodeGroup extends Sequelize.Model {
           type: Sequelize.STRING(10),
         },
         groupName: {
-          field: "group_bane",
+          field: "group_name",
           type: Sequelize.STRING(30),
         },
         useYn: {
@@ -42,6 +42,8 @@ module.exports = class CodeGroup extends Sequelize.Model {
   }
 
   static associate(db) {
-    db.CodeGroup.hasMany(db.CodeDetail);
+    db.CodeGroup.hasMany(db.CodeDetail, {
+      foreignKey: "group_code",
+    });
   }
 };

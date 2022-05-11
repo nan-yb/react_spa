@@ -5,6 +5,7 @@ module.exports = class CodeDetail extends Sequelize.Model {
     return super.init(
       {
         groupCode: {
+          primaryKey: true,
           field: "group_code",
           type: Sequelize.STRING(10),
         },
@@ -50,6 +51,8 @@ module.exports = class CodeDetail extends Sequelize.Model {
   }
 
   static associate(db) {
-    db.CodeDetail.belongsTo(db.CodeGroup);
+    db.CodeDetail.belongsTo(db.CodeGroup, {
+      foreignKey: "group_code",
+    });
   }
 };

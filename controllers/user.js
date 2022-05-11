@@ -125,8 +125,6 @@ exports.authUser = async (req, res, next) => {
     ],
   });
 
-  console.log();
-
   if (!loginUser) {
     return res.send({
       error: true,
