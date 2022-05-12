@@ -2,8 +2,13 @@ const CodeDetail = require("../models/codeDetail");
 
 exports.fetchCodeDetail = async (req, res, next) => {
   try {
+    console.log(req.params);
+
     const codeDetail = await CodeDetail.findOne({
-      where: { group_code: req.params.id },
+      where: {
+        group_code: req.params.groupCode,
+        code_value: req.params.codeValue,
+      },
     });
     res.send(codeDetail);
   } catch (error) {
@@ -24,24 +29,29 @@ exports.fetchCodeDetailList = async (req, res, next) => {
 
 exports.writeCodeDetail = async (req, res, next) => {
   try {
-    let groupDefine = await CodeDetail.findOne({
+    const groupDefine = await CodeDetail.findOne({
       where: {
         groupCode: req.body.groupCode,
+        codeValue: req.body.codeValue,
       },
     });
 
-    if (!groupDefine) {
-      res.send({ groupCode: "" });
+    if (groupDefine) {
+      throw Error();
     }
 
     const codeDetail = await CodeDetail.create({
       groupCode: req.body.groupCode,
-      groupName: req.body.groupName,
+      codeValue: req.body.codeValue,
+      codeName: req.body.codeName,
       useYn: "Y",
     });
 
     if (codeDetail) {
-      res.send({ groupCode: req.body.groupCode });
+      res.send({
+        groupCode: codeDetail.groupCode,
+        codeValue: codeDetail.codeValue,
+      });
     } else {
       res.status(404).send("error");
     }
@@ -55,11 +65,12 @@ exports.modifyCodeDetail = async (req, res, next) => {
   try {
     await CodeDetail.update(
       {
-        groupName: req.body.groupName,
+        codeName: req.body.codeName,
       },
       {
         where: {
-          groupCode: req.params.id,
+          group_code: req.params.groupCode,
+          code_value: req.params.codeValue,
         },
       }
     );
@@ -72,7 +83,12 @@ exports.modifyCodeDetail = async (req, res, next) => {
 
 exports.removeCodeDetail = async (req, res, next) => {
   try {
-    await CodeDetail.destroy({ where: { groupCode: req.params.id } });
+    await CodeDetail.destroy({
+      where: {
+        group_code: req.params.groupCode,
+        code_value: req.params.codeValue,
+      },
+    });
 
     res.send({ groupCode: req.params.groupCode });
   } catch (error) {

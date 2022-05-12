@@ -1,11 +1,11 @@
-const User = require("../models/member");
+const Member = require("../models/member");
 const MemberAuth = require("../models/memberAuth");
 const fs = require("fs");
 const jwt = require("jsonwebtoken");
 
 exports.selectUser = async (req, res, next) => {
   try {
-    const user = await User.findOne({
+    const user = await Member.findOne({
       where: { user_id: req.params.id },
     });
 
@@ -20,7 +20,7 @@ exports.selectUser = async (req, res, next) => {
 
 exports.selectListUser = async (req, res, next) => {
   try {
-    const user = await User.findAll();
+    const user = await Member.findAll();
     res.send(user);
   } catch (error) {
     console.error(error);
@@ -30,14 +30,14 @@ exports.selectListUser = async (req, res, next) => {
 
 exports.createUser = async (req, res, next) => {
   try {
-    let maxUserNo = await User.max("userNo");
+    let maxUserNo = await Member.max("userNo");
 
     if (!maxUserNo) {
       maxUserNo = 0;
     }
     maxUserNo += 1;
 
-    const user = await User.create({
+    const user = await Member.create({
       userNo: maxUserNo,
       userId: req.body.userId,
       userPw: req.body.userPw,
@@ -57,11 +57,44 @@ exports.createUser = async (req, res, next) => {
   }
 };
 
+exports.createAdminUser = async (req, res, next) => {
+  try {
+    let maxUserNo = await Member.max("userNo");
+
+    if (!maxUserNo) {
+      maxUserNo = 0;
+    }
+    maxUserNo += 1;
+
+    const user = await Member.create({
+      userNo: maxUserNo,
+      userId: req.body.userId,
+      userPw: req.body.userPw,
+      userName: req.body.userName,
+      job: req.body.job,
+      coin: req.body.coin,
+    });
+
+    // const userAuth = await MemberAuth.create({
+
+    // })
+
+    if (user) {
+      res.send({ userNo: maxUserNo });
+    } else {
+      res.status(404).send("error");
+    }
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+};
+
 exports.updateUser = async (req, res, next) => {
   try {
     const userParam = JSON.parse(req.body.user);
 
-    await User.update(
+    await Member.update(
       {
         UserName: userParam.UserName,
         price: userParam.price,
@@ -83,7 +116,7 @@ exports.updateUser = async (req, res, next) => {
 
 exports.deleteUser = async (req, res, next) => {
   try {
-    await User.destroy({ where: { userNo: req.params.id } });
+    await Member.destroy({ where: { userNo: req.params.id } });
     res.send({ userNo: req.params.id });
   } catch (error) {
     console.error(error);
@@ -93,7 +126,7 @@ exports.deleteUser = async (req, res, next) => {
 
 exports.showImage = async (req, res, next) => {
   try {
-    const user = await User.findOne({
+    const user = await Member.findOne({
       where: { user_id: req.query.userNo },
     });
 
@@ -115,7 +148,7 @@ exports.showImage = async (req, res, next) => {
 exports.authUser = async (req, res, next) => {
   const { username, password } = req.query;
 
-  const loginUser = await User.findOne({
+  const loginUser = await Member.findOne({
     where: { user_id: username },
     include: [
       {

@@ -11,10 +11,10 @@ const {
 const router = express.Router();
 
 router.get("/", fetchCodeDetailList);
-router.get("/:id", fetchCodeDetail);
+router.get("/:groupCode/:codeValue", fetchCodeDetail);
 
 router.post("/", writeCodeDetail);
-router.delete("/:id", removeCodeDetail);
-router.put("/:id", modifyCodeDetail);
+router.delete("/:groupCode/:codeValue", removeCodeDetail);
+router.put("/:groupCode/:codeValue", modifyCodeDetail);
 
 module.exports = router;

@@ -10,6 +10,7 @@ module.exports = class CodeDetail extends Sequelize.Model {
           type: Sequelize.STRING(10),
         },
         codeValue: {
+          primaryKey: true,
           field: "code_value",
           type: Sequelize.STRING(10),
         },
