@@ -4,26 +4,17 @@ const morgan = require("morgan");
 const path = require("path");
 const helmet = require("helmet");
 const hpp = require("hpp");
+const routes = require("./routes/index");
 
 require("dotenv").config();
 
-const boardRouter = require("./routes/board");
-const itemRouter = require("./routes/item");
-const pageRouter = require("./routes/page");
-const userRouter = require("./routes/user");
-const apiRouter = require("./routes/api");
-const codeGroupRouter = require("./routes/codegroup");
-const codeDetailRouter = require("./routes/codedetail");
-
 const { sequelize } = require("./models");
-// const passportConfig = require("./passport");
 const logger = require("./logger");
 
 const app = express();
 
 app.set("secretCode", process.env.SECRET_CODE);
 app.set("port", process.env.PORT || 8001);
-// passportConfig(); // 패스포트 설정
 
 sequelize
   .sync({ force: false })
@@ -48,33 +39,8 @@ app.use("/img", express.static(path.join(__dirname, "uploads")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// app.use(cookieParser(process.env.COOKIE_SECRET));
-// const sessionOption = {
-//   resave: false,
-//   saveUninitialized: false,
-//   secret: process.env.COOKIE_SECRET,
-//   cookie: {
-//     httpOnly: true,
-//     secure: false,
-//   },
-//   store: new RedisStore({ client: redisClient }),
-// };
-
-// if (process.env.NODE_ENV === "production") {
-//   sessionOption.proxy = true;
-//   // sessionOption.cookie.secure = true;
-// }
-// app.use(session(sessionOption));
-// app.use(passport.initialize());
-// app.use(passport.session());
-
-app.use("/", pageRouter);
-app.use("/boards", boardRouter);
-app.use("/items", itemRouter);
-app.use("/users", userRouter);
-app.use("/api", apiRouter);
-app.use("/codegroups", codeGroupRouter);
-app.use("/codedetails", codeDetailRouter);
+// 라우트 설정
+app.use("/", routes);
 
 app.use((req, res, next) => {
   const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
