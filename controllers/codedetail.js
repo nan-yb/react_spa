@@ -1,4 +1,4 @@
-const CodeDetail = require("../models/codeDetail");
+import CodeDetail from "../models/codeDetail";
 
 exports.fetchCodeDetail = async (req, res, next) => {
   try {

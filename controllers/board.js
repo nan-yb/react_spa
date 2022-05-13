@@ -1,4 +1,4 @@
-const Board = require("../models/board");
+import Board from "../models/board";
 
 exports.selectBoard = async (req, res, next) => {
   try {

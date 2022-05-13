@@ -1,12 +1,12 @@
-const express = require("express");
+import express from "express";
 
-const pageRouter = require("./page");
-const boardRouter = require("./board");
-const itemRouter = require("./item");
-const userRouter = require("./user");
-const apiRouter = require("./api");
-const codeGroupRouter = require("./codegroup");
-const codeDetailRouter = require("./codedetail");
+import pageRouter from "./page";
+import boardRouter from "./board";
+import itemRouter from "./item";
+import userRouter from "./user";
+import apiRouter from "./api";
+import codeGroupRouter from "./codegroup";
+import codeDetailRouter from "./codedetail";
 
 const router = express.Router();
 

@@ -1,12 +1,12 @@
-const express = require("express");
+import express from "express";
 
-const {
+import {
   fetchCodeDetail,
   writeCodeDetail,
   removeCodeDetail,
   modifyCodeDetail,
   fetchCodeDetailList,
-} = require("../controllers/codedetail");
+} from "../controllers/codedetail";
 
 const router = express.Router();
 

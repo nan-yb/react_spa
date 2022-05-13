@@ -1,12 +1,12 @@
-const express = require("express");
+import express from "express";
 
-const {
+import {
   fetchCodeGroup,
   writeCodeGroup,
   removeCodeGroup,
   modifyCodeGroup,
   fetchCodeGroupList,
-} = require("../controllers/codegroup");
+} from "../controllers/codegroup";
 
 const router = express.Router();
 

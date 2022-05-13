@@ -1,8 +1,9 @@
-const Sequelize = require("sequelize");
+import Sequelize from "sequelize";
 const env = process.env.NODE_ENV || "development";
 const config = require("../config/config")[env];
-const fs = require("fs");
-const path = require("path");
+
+import fs from "fs";
+import path from "path";
 const basename = path.basename(__filename);
 
 const db = {};

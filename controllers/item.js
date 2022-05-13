@@ -1,5 +1,5 @@
-const Item = require("../models/item");
-const fs = require("fs");
+import Item from "../models/item";
+import fs from "fs";
 
 exports.selectItem = async (req, res, next) => {
   try {

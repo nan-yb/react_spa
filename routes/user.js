@@ -1,7 +1,7 @@
-const express = require("express");
+import express from "express";
 
 // const { isLoggedIn } = require('./middlewares');
-const {
+import {
   selectUser,
   createAdminUser,
   createUser,
@@ -10,7 +10,7 @@ const {
   selectListUser,
   authUser,
   getMyInfo,
-} = require("../controllers/user");
+} from "../controllers/user";
 
 const router = express.Router();
 

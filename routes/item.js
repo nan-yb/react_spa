@@ -1,7 +1,17 @@
-const express = require("express");
-const path = require("path");
-const fs = require("fs");
-const multer = require("multer");
+import express from "express";
+import path from "path";
+import fs from "fs";
+import multer from "multer";
+import {
+  selectItem,
+  createItem,
+  deleteItem,
+  updateItem,
+  selectListItem,
+  showImage,
+} from "../controllers/Item";
+
+const router = express.Router();
 
 try {
   fs.readdirSync("uploads");
@@ -22,17 +32,6 @@ const upload = multer({
   }),
   limits: { fileSize: 5 * 1024 * 1024 },
 });
-
-const {
-  selectItem,
-  createItem,
-  deleteItem,
-  updateItem,
-  selectListItem,
-  showImage,
-} = require("../controllers/Item");
-
-const router = express.Router();
 
 router.get("/", selectListItem);
 router.get("/display/", showImage);

@@ -1,13 +1,12 @@
-const express = require("express");
-
+import express from "express";
 // const { isLoggedIn } = require('./middlewares');
-const {
+import {
   selectBoard,
   createBoard,
   deleteBoard,
   updateBoard,
   selectListBoard,
-} = require("../controllers/board");
+} from "../controllers/board";
 
 const router = express.Router();
 

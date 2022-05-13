@@ -1,7 +1,7 @@
-const Member = require("../models/member");
-const MemberAuth = require("../models/memberAuth");
-const fs = require("fs");
-const jwt = require("jsonwebtoken");
+import Member from "../models/member";
+import MemberAuth from "../models/memberAuth";
+import fs from "fs";
+import jwt from "jsonwebtoken";
 
 exports.selectUser = async (req, res, next) => {
   try {

@@ -1,15 +1,15 @@
-const express = require("express");
-const cookieParser = require("cookie-parser");
-const morgan = require("morgan");
-const path = require("path");
-const helmet = require("helmet");
-const hpp = require("hpp");
-const routes = require("./routes/index");
+import express from "express";
+// const cookieParser = require("cookie-parser");
+import morgan from "morgan";
+// const morgan = require("morgan");
+import path from "path";
+import helmet from "helmet";
+import hpp from "hpp";
+import routes from "./routes/index";
+import { sequelize } from "./models";
+import logger from "./logger";
 
 require("dotenv").config();
-
-const { sequelize } = require("./models");
-const logger = require("./logger");
 
 const app = express();
 

@@ -1,8 +1,7 @@
-const CodeGroup = require("../models/codeGroup");
-const CodeDetail = require("../models/codeDetail");
-const { sequelize } = require("../models");
-
-const express = require("express");
+import { sequelize } from "../models";
+import express from "express";
+import CodeGroup from "../models/codeGroup";
+import CodeDetail from "../models/codeDetail";
 
 const router = express.Router();
 

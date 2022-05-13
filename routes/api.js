@@ -1,6 +1,6 @@
-const express = require("express");
-const jwt = require("jsonwebtoken");
-const Member = require("../models/member");
+import express from "express";
+import jwt from "jsonwebtoken";
+import Member from "../models/member";
 
 const router = express.Router();
 

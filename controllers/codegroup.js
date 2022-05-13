@@ -1,4 +1,4 @@
-const CodeGroup = require("../models/codeGroup");
+import CodeGroup from "../models/codeGroup";
 
 exports.fetchCodeGroup = async (req, res, next) => {
   try {
