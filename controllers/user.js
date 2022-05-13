@@ -3,7 +3,7 @@ import MemberAuth from "../models/memberAuth";
 import fs from "fs";
 import jwt from "jsonwebtoken";
 
-exports.selectUser = async (req, res, next) => {
+export const selectUser = async (req, res, next) => {
   try {
     const user = await Member.findOne({
       where: { user_id: req.params.id },
@@ -18,7 +18,7 @@ exports.selectUser = async (req, res, next) => {
   }
 };
 
-exports.selectListUser = async (req, res, next) => {
+export const selectListUser = async (req, res, next) => {
   try {
     const user = await Member.findAll();
     res.send(user);
@@ -28,7 +28,7 @@ exports.selectListUser = async (req, res, next) => {
   }
 };
 
-exports.createUser = async (req, res, next) => {
+export const createUser = async (req, res, next) => {
   try {
     let maxUserNo = await Member.max("userNo");
 
@@ -57,7 +57,7 @@ exports.createUser = async (req, res, next) => {
   }
 };
 
-exports.createAdminUser = async (req, res, next) => {
+export const createAdminUser = async (req, res, next) => {
   try {
     let maxUserNo = await Member.max("userNo");
 
@@ -90,7 +90,7 @@ exports.createAdminUser = async (req, res, next) => {
   }
 };
 
-exports.updateUser = async (req, res, next) => {
+export const updateUser = async (req, res, next) => {
   try {
     const userParam = JSON.parse(req.body.user);
 
@@ -114,7 +114,7 @@ exports.updateUser = async (req, res, next) => {
   }
 };
 
-exports.deleteUser = async (req, res, next) => {
+export const deleteUser = async (req, res, next) => {
   try {
     await Member.destroy({ where: { userNo: req.params.id } });
     res.send({ userNo: req.params.id });
@@ -124,7 +124,7 @@ exports.deleteUser = async (req, res, next) => {
   }
 };
 
-exports.showImage = async (req, res, next) => {
+export const showImage = async (req, res, next) => {
   try {
     const user = await Member.findOne({
       where: { user_id: req.query.userNo },
@@ -145,7 +145,7 @@ exports.showImage = async (req, res, next) => {
   }
 };
 
-exports.authUser = async (req, res, next) => {
+export const authUser = async (req, res, next) => {
   const { username, password } = req.query;
 
   const loginUser = await Member.findOne({

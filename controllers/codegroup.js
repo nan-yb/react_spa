@@ -1,6 +1,6 @@
 import CodeGroup from "../models/codeGroup";
 
-exports.fetchCodeGroup = async (req, res, next) => {
+export const fetchCodeGroup = async (req, res, next) => {
   try {
     const codeGroup = await CodeGroup.findOne({
       where: { group_code: req.params.id },
@@ -12,7 +12,7 @@ exports.fetchCodeGroup = async (req, res, next) => {
   }
 };
 
-exports.fetchCodeGroupList = async (req, res, next) => {
+export const fetchCodeGroupList = async (req, res, next) => {
   try {
     const codeGroup = await CodeGroup.findAll();
     res.send(codeGroup);
@@ -22,7 +22,7 @@ exports.fetchCodeGroupList = async (req, res, next) => {
   }
 };
 
-exports.writeCodeGroup = async (req, res, next) => {
+export const writeCodeGroup = async (req, res, next) => {
   try {
     let groupDefine = await CodeGroup.findOne({
       where: {
@@ -51,7 +51,7 @@ exports.writeCodeGroup = async (req, res, next) => {
   }
 };
 
-exports.modifyCodeGroup = async (req, res, next) => {
+export const modifyCodeGroup = async (req, res, next) => {
   try {
     await CodeGroup.update(
       {
@@ -70,7 +70,7 @@ exports.modifyCodeGroup = async (req, res, next) => {
   }
 };
 
-exports.removeCodeGroup = async (req, res, next) => {
+export const removeCodeGroup = async (req, res, next) => {
   try {
     await CodeGroup.destroy({ where: { groupCode: req.params.id } });
 

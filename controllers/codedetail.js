@@ -1,6 +1,6 @@
 import CodeDetail from "../models/codeDetail";
 
-exports.fetchCodeDetail = async (req, res, next) => {
+export const fetchCodeDetail = async (req, res, next) => {
   try {
     console.log(req.params);
 
@@ -17,7 +17,7 @@ exports.fetchCodeDetail = async (req, res, next) => {
   }
 };
 
-exports.fetchCodeDetailList = async (req, res, next) => {
+export const fetchCodeDetailList = async (req, res, next) => {
   try {
     const codeDetail = await CodeDetail.findAll();
     res.send(codeDetail);
@@ -27,7 +27,7 @@ exports.fetchCodeDetailList = async (req, res, next) => {
   }
 };
 
-exports.writeCodeDetail = async (req, res, next) => {
+export const writeCodeDetail = async (req, res, next) => {
   try {
     const groupDefine = await CodeDetail.findOne({
       where: {
@@ -61,7 +61,7 @@ exports.writeCodeDetail = async (req, res, next) => {
   }
 };
 
-exports.modifyCodeDetail = async (req, res, next) => {
+export const modifyCodeDetail = async (req, res, next) => {
   try {
     await CodeDetail.update(
       {
@@ -81,7 +81,7 @@ exports.modifyCodeDetail = async (req, res, next) => {
   }
 };
 
-exports.removeCodeDetail = async (req, res, next) => {
+export const removeCodeDetail = async (req, res, next) => {
   try {
     await CodeDetail.destroy({
       where: {

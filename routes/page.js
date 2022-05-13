@@ -1,13 +1,11 @@
 import { sequelize } from "../models";
 import express from "express";
-import CodeGroup from "../models/codeGroup";
-import CodeDetail from "../models/codeDetail";
 
 const router = express.Router();
 
 router.get("/", async (req, res, next) => {
   try {
-    res.send("1");
+    res.status(200).send("");
   } catch (err) {
     console.error(err);
     next(err);

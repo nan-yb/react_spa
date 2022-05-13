@@ -1,7 +1,7 @@
 import Item from "../models/item";
 import fs from "fs";
 
-exports.selectItem = async (req, res, next) => {
+export const selectItem = async (req, res, next) => {
   try {
     const item = await Item.findOne({
       where: { item_id: req.params.id },
@@ -13,7 +13,7 @@ exports.selectItem = async (req, res, next) => {
   }
 };
 
-exports.selectListItem = async (req, res, next) => {
+export const selectListItem = async (req, res, next) => {
   try {
     const item = await Item.findAll();
     res.send(item);
@@ -23,7 +23,7 @@ exports.selectListItem = async (req, res, next) => {
   }
 };
 
-exports.createItem = async (req, res, next) => {
+export const createItem = async (req, res, next) => {
   try {
     let maxItemNo = await Item.max("itemId");
 
@@ -53,7 +53,7 @@ exports.createItem = async (req, res, next) => {
   }
 };
 
-exports.updateItem = async (req, res, next) => {
+export const updateItem = async (req, res, next) => {
   try {
     const itemParam = JSON.parse(req.body.item);
 
@@ -77,7 +77,7 @@ exports.updateItem = async (req, res, next) => {
   }
 };
 
-exports.deleteItem = async (req, res, next) => {
+export const deleteItem = async (req, res, next) => {
   try {
     await Item.destroy({ where: { itemId: req.params.id } });
     res.send({ itemId: req.params.id });
@@ -87,7 +87,7 @@ exports.deleteItem = async (req, res, next) => {
   }
 };
 
-exports.showImage = async (req, res, next) => {
+export const showImage = async (req, res, next) => {
   try {
     const item = await Item.findOne({
       where: { item_id: req.query.itemId },

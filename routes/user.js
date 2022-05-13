@@ -9,7 +9,6 @@ import {
   updateUser,
   selectListUser,
   authUser,
-  getMyInfo,
 } from "../controllers/user";
 
 const router = express.Router();

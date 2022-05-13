@@ -1,6 +1,6 @@
 import Board from "../models/board";
 
-exports.selectBoard = async (req, res, next) => {
+export const selectBoard = async (req, res, next) => {
   try {
     const board = await Board.findOne({
       where: { board_no: req.params.id },
@@ -12,7 +12,7 @@ exports.selectBoard = async (req, res, next) => {
   }
 };
 
-exports.selectListBoard = async (req, res, next) => {
+export const selectListBoard = async (req, res, next) => {
   try {
     const board = await Board.findAll();
     res.send(board);
@@ -22,7 +22,7 @@ exports.selectListBoard = async (req, res, next) => {
   }
 };
 
-exports.createBoard = async (req, res, next) => {
+export const createBoard = async (req, res, next) => {
   try {
     let maxBoardNo = await Board.max("board_no");
 
@@ -49,7 +49,7 @@ exports.createBoard = async (req, res, next) => {
   }
 };
 
-exports.updateBoard = async (req, res, next) => {
+export const updateBoard = async (req, res, next) => {
   try {
     await Board.update(
       {
@@ -69,7 +69,7 @@ exports.updateBoard = async (req, res, next) => {
   }
 };
 
-exports.deleteBoard = async (req, res, next) => {
+export const deleteBoard = async (req, res, next) => {
   try {
     await Board.destroy({ where: { id: req.params.id } });
 
